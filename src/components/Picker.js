@@ -230,11 +230,11 @@ function Picker({
         setNecessaryItems(state => {
             return [...state].map(item => {
                 const _item = items.find(x => x[_schema.value] === item[_schema.value]);
-                
+
                 if (_item) {
                     return {...item, ..._item};
                 }
-                
+
                 return item;
             });
         });
@@ -248,7 +248,7 @@ function Picker({
             setNecessaryItems(state => {
                 if (value === null || (Array.isArray(value) && value.length === 0))
                     return [];
-                
+
                 let _state = [...state].filter(item => value.includes(item[_schema.value]));
 
                 const newItems = value.reduce((accumulator, currentValue) => {
@@ -256,7 +256,7 @@ function Picker({
 
                     if (index === -1) {
                         const item = items.find(item => item[_schema.value] === currentValue);
-                    
+
                         if (item) {
                             return [...accumulator, item];
                         }
@@ -279,7 +279,7 @@ function Picker({
                     state.push(item);
                 }
             }
-            
+
             setNecessaryItems(state);
         }
 
@@ -402,7 +402,7 @@ function Picker({
                     });
                 } else {
                     const index = sortedItems.findIndex(item => item[_schema["value"]] === value);
-                    
+
                     if (index > -1)
                         flatListRef.current?.scrollToIndex?.({
                             index,
@@ -451,7 +451,7 @@ function Picker({
         } else {
             if (disableLocalSearch)
                 return sortedItems;
-    
+
             const values = [];
             let results = sortedItems.filter(item => {
                 if (item[_schema.label].toLowerCase().includes(searchText.toLowerCase())) {
@@ -573,7 +573,7 @@ function Picker({
 
         if (isNull)
             return null;
-        
+
         try {
             return necessaryItems.find(item => item[_schema.value] === _value);
         } catch (e) {
@@ -592,11 +592,11 @@ function Picker({
         if (multiple)
             if (item.length > 0) {
                 let mtext = _multipleText;
-                
+
                 if (typeof mtext !== 'string') {
                     mtext = mtext[item.length] ?? mtext.n;
                 }
-                
+
                 return mtext.replace('{count}', item.length);
             } else
                 return fallback;
@@ -696,25 +696,6 @@ function Picker({
     }, [disableBorderRadius, open, direction, listMode]);
 
     /**
-     * Disable borderRadius for the drop down.
-     * @returns {object}
-     */
-     const dropDownNoBorderRadius = useMemo(() => {
-        if (listMode === LIST_MODE.MODAL)
-            return null;
-
-        if (disableBorderRadius && open) {
-            return direction === 'top' ? {
-                borderTopLeftRadius: 0,
-                borderTopRightRadius: 0,
-            } : {
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
-            };
-        }
-     }, [disableBorderRadius, open, direction, listMode]);
-
-    /**
      * The disabled style.
      * @returns {object}
      */
@@ -783,12 +764,10 @@ function Picker({
             zIndex: _zIndex
         },
         ...[dropDownContainerStyle].flat(),
-        dropDownNoBorderRadius
     ]), [
         dropDownContainerStyle,
         pickerHeight,
         maxHeight,
-        dropDownNoBorderRadius,
         direction,
         _zIndex,
         THEME
@@ -1012,7 +991,7 @@ function Picker({
     const _itemKey = useMemo(() => {
         if (itemKey === null)
             return _schema.value;
-        
+
         return itemKey;
     }, [itemKey, _schema]);
 
@@ -1105,7 +1084,7 @@ function Picker({
                 </View>
             );
         }
-        
+
         return <BadgeListEmptyComponent />;
     }, [__renderBadge, extendableBadgeContainerStyle, extendableBadgeItemContainerStyle]);
 
@@ -1114,10 +1093,10 @@ function Picker({
      * @returns {JSX.Element}
      */
      const BadgeBodyComponent = useMemo(() => {
-        if (extendableBadgeContainer) { 
+        if (extendableBadgeContainer) {
             return <ExtendableBadgeContainer selectedItems={selectedItems} />
         }
-        
+
         return (
             <FlatList
                 ref={setBadgeFlatListRef}
@@ -1690,7 +1669,7 @@ function Picker({
     const onRequestCloseModal = useCallback(() => {
         setOpen(false);
     }, []);
-    
+
     /**
      * The dropdown flatlist component.
      * @returns {JSX.Element}
@@ -1728,7 +1707,7 @@ function Picker({
     const DropDownScrollViewComponent = useMemo(() => {
         return (
             <ScrollView ref={scrollViewRef} nestedScrollEnabled={true} stickyHeaderIndices={stickyHeaderIndices} {...scrollViewProps}>
-                {_items.map((item, index) => { 
+                {_items.map((item, index) => {
                     return (
                         <Fragment key={item[_itemKey]}>
                             {index > 0 && ItemSeparatorComponent()}
