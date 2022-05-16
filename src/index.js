@@ -96,7 +96,7 @@ class DropDownPicker extends React.Component {
                props: {
                    ...state.props,
                    defaultValue: props.defaultValue
-               } 
+               }
             }
         }
 
@@ -359,7 +359,7 @@ class DropDownPicker extends React.Component {
         } else {
             return item;
         }
-        
+
         let len2 = label.length;
         return label + (len !== len2 ? '...' : '');
     }
@@ -394,7 +394,7 @@ class DropDownPicker extends React.Component {
                             flexDirection: 'row', flex: 1
                         },
                         this.props.style,
-                        this.state.isVisible && styles.noBottomRadius
+                        // this.state.isVisible && styles.noBottomRadius
                     ]}
                 >
 
@@ -489,7 +489,7 @@ class DropDownPicker extends React.Component {
                                                 justifyContent: 'space-between',
                                                 ...(this.isSelected(item) && this.props.activeItemStyle)
                                             } : {
-                                                
+
                                             }
                                         )
                                     }]}
